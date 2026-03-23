@@ -11,17 +11,16 @@ namespace FFXIVClientStructs.FFXIV.Component.GUI;
 [Inherits<AtkResNode>]
 [StructLayout(LayoutKind.Explicit, Size = 0xD0)]
 [VirtualTable("E8 ?? ?? ?? ?? 49 8B 55 ?? 0F B7 CD", [1, 87])]
-public unsafe partial struct AtkImageNode : ICreatable<AtkImageNode> {
+public unsafe partial struct AtkImageNode : ICreatable {
     [FieldOffset(0xC0)] public AtkUldPartsList* PartsList;
     [FieldOffset(0xC8)] public ushort PartId;
     [FieldOffset(0xCA)] public byte WrapMode;
     [FieldOffset(0xCB)] public ImageNodeFlags Flags;
 
     // 7.0 inlines this ctor
-    public AtkImageNode* Ctor() {
-        var ret = AtkResNode.Ctor();
+    public void Ctor() {
+        AtkResNode.Ctor();
         VirtualTable = StaticVirtualTablePointer;
-        return (AtkImageNode*)ret;
     }
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 8B 8D ?? ?? ?? ?? 48 8B 71 08"), GenerateStringOverloads]

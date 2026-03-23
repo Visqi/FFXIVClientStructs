@@ -68,7 +68,7 @@ public unsafe partial struct AtkTooltipManager {
     // to the specific agent
     [GenerateInterop]
     [StructLayout(LayoutKind.Explicit, Size = 0x18)]
-    public partial struct AtkTooltipArgs : ICreatable<AtkTooltipArgs> {
+    public partial struct AtkTooltipArgs : ICreatable {
         /// <remarks> Args for <see cref="AtkTooltipType.Text"/> / AddonTooltip. </remarks>
         [FieldOffset(0), CExporterUnion("Args")] public AtkTooltipTextArgs TextArgs;
         /// <remarks> Args for <see cref="AtkTooltipType.Item"/> / AddonItemDetail. </remarks>
@@ -81,7 +81,7 @@ public unsafe partial struct AtkTooltipManager {
         [FieldOffset(0), CExporterUnion("Args")] public AtkTooltipMiragePrismPrismItemArgs MiragePrismPrismItemArgs;
 
         [MemberFunction("E8 ?? ?? ?? ?? C1 FB 04")]
-        public partial AtkTooltipArgs* Ctor();
+        public partial void Ctor();
 
         [StructLayout(LayoutKind.Explicit, Size = 0x18)]
         public struct AtkTooltipTextArgs {
@@ -185,14 +185,14 @@ public unsafe partial struct AtkTooltipManager {
         [FieldOffset(0x18)] public ushort ParentId; // same as IDs in addons
         [FieldOffset(0x1A)] public AtkTooltipType Type;
     }
-}
 
-[Flags]
-public enum AtkTooltipType : byte {
-    None = 0,
-    Text = 1 << 0,
-    Item = 1 << 1,
-    Action = 1 << 2,
-    LovmAction = 1 << 3,
-    MiragePrismPrismItem = 1 << 4,
+    [Flags]
+    public enum AtkTooltipType : byte {
+        None = 0,
+        Text = 1 << 0,
+        Item = 1 << 1,
+        Action = 1 << 2,
+        LovmAction = 1 << 3,
+        MiragePrismPrismItem = 1 << 4,
+    }
 }

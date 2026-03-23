@@ -4,7 +4,7 @@ namespace FFXIVClientStructs.FFXIV.Client.Game.Network;
 
 [GenerateInterop]
 [StructLayout(LayoutKind.Explicit, Size = 0x46)]
-public partial struct GearsetDrawDataPacket {
+public partial struct PacketPlayerGearsetData {
     /// <summary> Stores the weapon data. Includes both dyes in the data. </summary>
     [FieldOffset(0x00)] public WeaponModelId MainhandWeaponData;
     [FieldOffset(0x08)] public WeaponModelId OffhandWeaponData;

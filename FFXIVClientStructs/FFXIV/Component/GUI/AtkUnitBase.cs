@@ -11,7 +11,7 @@ namespace FFXIVClientStructs.FFXIV.Component.GUI;
 [Inherits<AtkEventListener>]
 [StructLayout(LayoutKind.Explicit, Size = 0x238)]
 [VirtualTable("48 8D 05 ?? ?? ?? ?? 48 8B D9 48 89 01 33 ED 48 8B 89 ?? ?? ?? ?? 8B F2", 3, 74)]
-public unsafe partial struct AtkUnitBase : ICreatable<AtkUnitBase> {
+public unsafe partial struct AtkUnitBase : ICreatable {
     [FieldOffset(0x8), FixedSizeArray(isString: true)] internal FixedSizeArray32<byte> _name;
     [FieldOffset(0x28)] public AtkUldManager UldManager;
     [FieldOffset(0xB8)] public AtkWidgetAlignment WidgetAlignment; // copied from (AtkUldWidgetInfo*)UldManager.Objects
@@ -39,7 +39,7 @@ public unsafe partial struct AtkUnitBase : ICreatable<AtkUnitBase> {
     [BitField<bool>(nameof(DisableFocusability), 7)]
     [FieldOffset(0x1A0)] public byte Flags1A0;
     [BitField<bool>(nameof(IsReady), 0)]
-    [BitField<bool>(nameof(ShouldFireCallbackAndHideOrClose), 2)]
+    [BitField<bool>(nameof(DisableUserClose), 2)]
     [BitField<bool>(nameof(DisableFocusOnShow), 6)]
     [FieldOffset(0x1A1)] public byte Flags1A1;
     [BitField<bool>(nameof(WasLoadUldByNameCalled), 2)]
@@ -128,11 +128,7 @@ public unsafe partial struct AtkUnitBase : ICreatable<AtkUnitBase> {
     public partial bool IsReady { get; }
 
     /// <summary> Disables the "Close" option in the title bar context menu and prevents the window from being closed via input (ESC or similar). </summary>
-    [Obsolete("Use ShouldFireCallbackAndHideOrClose.")]
-    public bool DisableUserClose { get => ShouldFireCallbackAndHideOrClose; set => ShouldFireCallbackAndHideOrClose = value; }
-
-    /// <summary> If addon should have <seealso cref="FireCallback"/> triggered and if <seealso cref="Hide"/> or <seealso cref="Close"/> should be called </summary>
-    public partial bool ShouldFireCallbackAndHideOrClose { get; set; }
+    public partial bool DisableUserClose { get; set; }
 
     /// <summary> Disables loading from/saving to AddonConfig </summary>
     public partial bool DisableAddonConfig { get; set; }
@@ -164,7 +160,7 @@ public unsafe partial struct AtkUnitBase : ICreatable<AtkUnitBase> {
     public static partial float GetGlobalUIScale();
 
     [MemberFunction("E8 ?? ?? ?? ?? 33 D2 48 8D 9F")]
-    public partial AtkUnitBase* Ctor();
+    public partial void Ctor();
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 8B 5C 24 ?? 40 F6 C5 01")]
     public partial void Destructor();
@@ -306,7 +302,7 @@ public unsafe partial struct AtkUnitBase : ICreatable<AtkUnitBase> {
     public partial void SetScale(float scale, bool a3);
 
     [VirtualFunction(15)]
-    public partial void GetSize(ushort* outWidth, ushort* outHeight, bool scaled);
+    public partial void GetSize(short* outWidth, short* outHeight, bool scaled);
 
     [VirtualFunction(16)]
     public partial void Hide2();

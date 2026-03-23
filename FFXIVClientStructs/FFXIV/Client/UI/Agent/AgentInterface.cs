@@ -15,7 +15,7 @@ public unsafe partial struct AgentInterface {
     [FieldOffset(0x20)] public uint AddonId;
 
     [VirtualFunction(2)]
-    public partial AgentInterface* Dtor(byte freeFlags);
+    public partial void Dtor(byte freeFlags);
 
     [VirtualFunction(3)]
     public partial void Show();

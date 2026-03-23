@@ -10,7 +10,7 @@ namespace FFXIVClientStructs.FFXIV.Component.GUI;
 [GenerateInterop(isInherited: true)]
 [Inherits<AtkComponentBase>]
 [StructLayout(LayoutKind.Explicit, Size = 0x1B0)]
-public unsafe partial struct AtkComponentList : ICreatable<AtkComponentList> {
+public unsafe partial struct AtkComponentList : ICreatable {
     [FieldOffset(0xC0)] public AtkComponentListItemRenderer* FirstAtkComponentListItemRenderer;
     [FieldOffset(0xC8)] public AtkComponentScrollBar* ScrollBarComponent;
     [FieldOffset(0xD0)] public AtkCollisionNode* CollisionNode;
@@ -99,7 +99,7 @@ public unsafe partial struct AtkComponentList : ICreatable<AtkComponentList> {
     [FieldOffset(0x193), Obsolete("Renamed to IsScrollBarEnabled")] public bool ScrollbarEnabled;
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 89 9F ?? ?? ?? ?? 48 8D 05 ?? ?? ?? ?? 48 89 07 0F 57 C0")]
-    public partial AtkComponentList* Ctor();
+    public partial void Ctor();
 
     [VirtualFunction(23)]
     public partial void ScrollToItem(short index);
@@ -147,14 +147,14 @@ public unsafe partial struct AtkComponentList : ICreatable<AtkComponentList> {
 
     /// <remarks> rendererNodeId is the node id of the ListItemRenderer to use. if 0, it uses FirstAtkComponentListItemRenderer </remarks>
     [MemberFunction("E8 ?? ?? ?? ?? 8B D3 85 ED")]
-    public partial void SetupRenderer(AtkComponentListItemPopulator* populator, ColumnNodeInfo* columns, byte columnCount, uint rendererNodeId = 0);
+    public partial void SetupRenderer(AtkComponentListItemPopulator* populator, ColumnNodeInfo* columns, int columnCount, uint rendererNodeId = 0); // TODO: columnCount is of size byte and not int
 
     [Obsolete("Use GetComponentItemRendererById")]
     [MemberFunction("E8 ?? ?? ?? ?? 4C 8B C8 48 85 DB")]
     public partial AtkComponentListItemRenderer* GetItemRendererByNodeId(uint nodeId);
 
     [MemberFunction("E8 ?? ?? ?? ?? 41 80 FF 04")]
-    public partial void SetItemCount(short value);
+    public partial void SetItemCount(int value); // TODO: value is of size short and not int. passed the value of SetItemLabels
 
     [MemberFunction("E8 ?? ?? ?? ?? 85 FF 79 ?? 44 39 75"), GenerateStringOverloads]
     public partial void SetItemLabel(int index, CStringPointer text);
